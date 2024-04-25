@@ -1,0 +1,9 @@
+#!/bin/bash
+
+printf "\nWORKSPACE = $1\n\n"
+
+filename="$1.sh" 
+source env/$filename
+
+printf "\nGIT ENVIRONMENT\n\n"
+./git/git-config.sh $git_username $git_email
