@@ -22,7 +22,7 @@ set() {
 
 
 config() {
-    echo "Hello, $1!"
+    echo "Not implemented in this version!"
 }
 
 
