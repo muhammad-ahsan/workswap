@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 git_username=ahsan
 git_email=muhammad.ahsan@eraneos.com
