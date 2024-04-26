@@ -8,4 +8,4 @@ email=$(git config --global user.email)
 
 echo USERNAME + EMAIL updated successfully
 echo user.name=$username
-echo user.email=$email 
+echo user.email=$email

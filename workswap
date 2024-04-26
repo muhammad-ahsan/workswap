@@ -1,45 +1,43 @@
 #!/bin/bash
 
 show() {
-    ls -1 env
+  ls -1 env
 }
 
 set() {
-    printf "\nWORKSPACE = $1\n"
+  printf "\nWORKSPACE = $1\n"
 
-    filename=$1
+  filename=$1
 
-        # Check if the file exists
-    if [ -f "env/$filename" ]; then
-        source env/$filename
+  # Check if the file exists
+  if [ -f "env/$filename" ]; then
+    source env/$filename
 
-        printf "\nGIT ENVIRONMENT\n\n"
-        ./git/git-config.sh $git_username $git_email
-    else
-        echo "Environment does not exist :("
-    fi
+    printf "\nGIT ENVIRONMENT\n\n"
+    ./git/git-config.sh $git_username $git_email
+  else
+    echo "Environment does not exist :("
+  fi
 }
-
 
 config() {
-    echo "Not implemented in this version!"
+  echo "Not implemented in this version!"
 }
-
 
 # Main function to parse commands
 main() {
-    case $1 in
-        set)
-            set $2
-            ;;
-        show)
-            show
-            ;;
-        *)
-            echo "Unknown command: $1"
-            echo "Usage: $0 {show|set|config} [arguments...]"
-            ;;
-    esac
+  case $1 in
+  set)
+    set $2
+    ;;
+  show)
+    show
+    ;;
+  *)
+    echo "Unknown command: $1"
+    echo "Usage: $0 {show|set|config} [arguments...]"
+    ;;
+  esac
 }
 
 main "$@"
