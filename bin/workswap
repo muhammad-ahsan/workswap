@@ -7,7 +7,6 @@ SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 ROOT_PATH=$(cd "." && pwd)
 
 source "$SCRIPT_DIR/operations.sh"
-source "$SCRIPT_DIR/config.sh"
 
 main() {
   case $1 in
