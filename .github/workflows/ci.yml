@@ -32,4 +32,4 @@ jobs:
           ./install.sh $HOME/bats
 
       - name: Run tests
-        run: $HOME/bats/bin/bats test/*.bats
+        run: $HOME/bats/bin/bats test/*.bat
