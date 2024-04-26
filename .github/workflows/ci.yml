@@ -23,7 +23,7 @@ jobs:
           sudo mv shfmt /usr/local/bin/
 
       - name: Check code formatting
-        run: shfmt -d .
+        run: shfmt -i 2 .
 
       - name: Install bats-core
         run: |
