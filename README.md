@@ -15,7 +15,7 @@ To get started with WorkSwap, follow these steps:
 ### Clone the Repository
 Clone the WorkSwap repository to your local machine:
 
-git clone https://github.com/muhammad-ahsan/workswap.git
+git clone --recurse-submodules https://github.com/muhammad-ahsan/workswap.git
 
 ### Add WorkSwap to PATH
 To access WorkSwap from anywhere in your terminal, add its directory to your PATH environment variable. You can do this by adding the following line to your shell configuration file (e.g., .bashrc, .zshrc):
