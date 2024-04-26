@@ -1,9 +1,45 @@
 #!/bin/bash
 
-printf "\nWORKSPACE = $1\n\n"
+show() {
+    ls -1 env
+}
 
-filename="$1.sh" 
-source env/$filename
+set() {
+    printf "\nWORKSPACE = $1\n"
 
-printf "\nGIT ENVIRONMENT\n\n"
-./git/git-config.sh $git_username $git_email
+    filename=$1
+
+        # Check if the file exists
+    if [ -f "env/$filename" ]; then
+        source env/$filename
+
+        printf "\nGIT ENVIRONMENT\n\n"
+        ./git/git-config.sh $git_username $git_email
+    else
+        echo "Environment does not exist :("
+    fi
+}
+
+
+config() {
+    echo "Hello, $1!"
+}
+
+
+# Main function to parse commands
+main() {
+    case $1 in
+        set)
+            set $2
+            ;;
+        show)
+            show
+            ;;
+        *)
+            echo "Unknown command: $1"
+            echo "Usage: $0 {show|set|config} [arguments...]"
+            ;;
+    esac
+}
+
+main "$@"
