@@ -20,11 +20,20 @@ set() {
   fi
 }
 
-config() {
-  echo "Not implemented in this version!"
+remove() {
+  if [ -f "env/$1" ]; then
+    rm env/$1
+    echo "Environment $1 removed"
+  else
+    echo "Environment does not exist :("
+  fi
 }
 
-# Main function to parse commands
+config() {
+  echo "Not implemented in this version!"
+  # Source config REPL here
+}
+
 main() {
   case $1 in
   set)
@@ -33,9 +42,15 @@ main() {
   show)
     show
     ;;
+  remove)
+    remove $2
+    ;;
+  config)
+    config
+    ;;
   *)
     echo "Unknown command: $1"
-    echo "Usage: $0 {show|set|config} [arguments...]"
+    echo "Usage: $0 {show|set|config|remove} [arguments...]"
     ;;
   esac
 }

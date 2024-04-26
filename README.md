@@ -33,18 +33,23 @@ WorkSwap provides several commands to manage your development environments:
 To display the current environment, use:
 
 
-`workspace show`
+`workswap show`
 
 #### Set Environment
 To switch to a different environment, use:
 
-`workspace set <ENVIRONMENT>`
+`workswap set <ENVIRONMENT>`
 
 Replace <ENVIRONMENT> with the desired environment (e.g., personal, client).
+
+#### Remove Environment
+To remove an environment, use:
+
+`workswap remove <ENVIRONMENT>`
 
 #### Configure Environments (Coming Soon!)
 To configure specific environments, use:
 
-`workspace config <ENVIRONMENT> [arguments...]`
+`workswap config <ENVIRONMENT> [arguments...]`
 
 Replace <ENVIRONMENT> with the environment you want to configure and provide any additional arguments as needed.
