@@ -29,7 +29,7 @@ jobs:
         run: |
           git clone https://github.com/bats-core/bats-core.git
           cd bats-core
-          ./install.sh /usr/local
+          ./install.sh $HOME/bats
 
       - name: Run tests
-        run: bats tests/*.bats
+        run: $HOME/bats/bin/bats test/*.bats

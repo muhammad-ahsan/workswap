@@ -53,3 +53,51 @@ To configure specific environments, use:
 `workswap config <ENVIRONMENT> [arguments...]`
 
 Replace <ENVIRONMENT> with the environment you want to configure and provide any additional arguments as needed.
+
+# Test CI/CD Pipeline Locally
+
+GitHub Actions allows you to automate your software development workflows, including CI/CD pipelines. Testing your CI/CD pipeline locally before pushing changes to GitHub can help catch errors and ensure smooth workflow execution. This guide outlines how to test your GitHub Actions workflows locally using the `act` tool.
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed on your local machine:
+
+- Docker
+- `act` (GitHub Actions tool)
+
+## Installation
+
+### Install Docker
+
+Download and install Docker for your operating system from the [official Docker website](https://www.docker.com/get-started).
+
+### Install `act`
+
+You can install `act` using one of the following methods:
+
+#### Using Homebrew (on macOS):
+
+```bash
+brew install act
+```
+
+### Usage 
+**Run `act`**: Execute the following command to run your GitHub Actions workflows locally:
+
+```bash
+act
+```
+
+If you have multiple workflows, you can specify the one you want to run:
+
+```bash
+act -j <workflow-name>
+```
+
+**View Results**: `act` will run your workflows locally in Docker containers and output the results to the console. Inspect the output to ensure that the workflows behave as expected.
+
+
+
+
+
+
