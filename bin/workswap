@@ -9,25 +9,25 @@ ROOT_PATH=$(cd "." && pwd)
 source "$SCRIPT_DIR/operations.sh"
 
 main() {
-  case $1 in
-  set)
-    set $2
-    ;;
-  show)
-    show
-    ;;
-  remove)
-    remove $2
-    ;;
-  config.sh)
-    config.sh
-    ;;
-  *)
-    echo "Unknown command: $1"
-    echo "Usage: $0 {show|set|config|remove} [arguments...]"
-    exit 1
-    ;;
-  esac
+	case $1 in
+	set)
+		set $2
+		;;
+	show)
+		show
+		;;
+	remove)
+		remove $2
+		;;
+	config.sh)
+		config.sh
+		;;
+	*)
+		echo "Unknown command: $1"
+		echo "Usage: $0 {show|set|config|remove} [arguments...]"
+		exit 1
+		;;
+	esac
 }
 
 main "$@"
