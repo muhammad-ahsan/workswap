@@ -1,7 +1,13 @@
 #!/bin/bash
 
+# Get the directory of the script
+SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
+
+# Navigate two levels up
+ROOT_PATH=$(cd ".." && pwd)
+
 show() {
-  ls -1 env
+  ls -1 "$ROOT_PATH/env"
 }
 
 set() {
@@ -10,19 +16,19 @@ set() {
   filename=$1
 
   # Check if the file exists
-  if [ -f "env/$filename" ]; then
-    source env/$filename
+  if [ -f "$ROOT_PATH/env/$filename" ]; then
+    source "$ROOT_PATH/env/$filename"
 
     printf "\nGIT ENVIRONMENT\n\n"
-    ./git/git-config.sh $git_username $git_email
+    $ROOT_PATH/plugins/git/git-config.sh $git_username $git_email
   else
     echo "Environment does not exist :("
   fi
 }
 
 remove() {
-  if [ -f "env/$1" ]; then
-    rm env/$1
+  if [ -f "$ROOT_PATH/env/$1" ]; then
+    rm "$ROOT_PATH/env/$1"
     echo "Environment $1 removed"
   else
     echo "Environment does not exist :("
