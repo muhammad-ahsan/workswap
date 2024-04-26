@@ -20,7 +20,7 @@ git clone https://github.com/muhammad-ahsan/workswap.git
 ### Add WorkSwap to PATH
 To access WorkSwap from anywhere in your terminal, add its directory to your PATH environment variable. You can do this by adding the following line to your shell configuration file (e.g., .bashrc, .zshrc):
 
-`export PATH="$PATH:/path/to/workswap`
+`export PATH="$PATH:/path/to/workswap/bin`
 
 Replace /path/to/workswap with the actual path to the WorkSwap directory on your machine.
 
