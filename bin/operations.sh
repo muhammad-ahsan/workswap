@@ -30,6 +30,6 @@ remove() {
 }
 
 config() {
-    echo "Not implemented in this version!"
-    # Source config REPL here
+	echo "Not implemented in this version!"
+	# Source config REPL here
 }
