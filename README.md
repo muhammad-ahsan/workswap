@@ -2,6 +2,9 @@
 
 WorkSwap is a command-line interface (CLI) tool designed to streamline the process of switching between different development environments seamlessly. Whether you're transitioning between personal projects or client work, managing various environments such as Git repositories or cloud platforms like AWS, Google Cloud, or Azure CLI, WorkSwap simplifies the configuration and switching process with just a few commands.
 
+## Dependencies
+* `Git` must be installed on the system.
+
 ## Features
 
 * **Effortless Environment Switching**: Easily switch between different development environments with a single command.
