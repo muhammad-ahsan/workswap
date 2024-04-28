@@ -76,14 +76,11 @@ _configure_plugins() {
     _validate_exist $1
     environment_dir=$1
 
-    # TODO: What if plugin is already configured
-    # Load env and rewrite
-
     for plugin in "${ENABLED_PLUGINS[@]}"; do
         # Write plugins to user environment
         properties_file="$environment_dir/${plugin}.sh"
 
-        # Truncate previous settings
+        # In case plugin is already configured - Truncate
         printf "#!/bin/bash\n\n" > "$properties_file"
 
         # Check if the current plugin is one of the specified values
