@@ -19,8 +19,8 @@ main() {
 	remove)
 		remove $2
 		;;
-	config.sh)
-		config.sh
+	config)
+		config
 		;;
 	*)
 		echo "Unknown command: $1"
