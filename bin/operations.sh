@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 AVAILABLE_PLUGINS=("aws" "gcloud" "git" "azure")
 ENABLED_PLUGINS=()
 
@@ -10,9 +9,23 @@ _prompt_user() {
     eval "$1=\$value"
 }
 
-_setup_environment(){
+_validate_non_empty(){
+    if [ -z "$1" ]; then
+        echo "Argument cannot be empty :( "
+        exit 1
+    fi
+}
 
-    local userEnv="$1"
+_validate_exist(){
+    if [ ! -d "$1" ]; then
+        echo "Directory doesn't exist"
+        exit 1
+    fi
+}
+
+_setup_environment(){
+    userEnv="$1"
+
     while true; do
         # Check if name is provided as an argument
         if [ -z "$1" ]; then
@@ -26,23 +39,19 @@ _setup_environment(){
         break
     done
 
+    environment_dir="$ROOT_PATH/env/$userEnv"
+
     if [ ! -e "$ROOT_PATH/env/$userEnv" ]; then
-        > "$ROOT_PATH/env/$userEnv"
-        printf "#!/bin/bash\n\n" >> "$ROOT_PATH/env/$userEnv"
+        # Environment creation
+        mkdir $environment_dir
     fi
-    echo $userEnv
+    echo $environment_dir
 }
 
-_validate_non_empty(){
-    if [ -z "$1" ]; then
-        echo "Argument cannot be empty :( "
-        exit 1
-    fi
-}
-_setup_plugin(){
+_associate_plugins_to_env(){
     # User environment is required
-    _validate_non_empty $1
-    userEnv = $1
+    _validate_exist $1
+    environment_dir=$1
 
     while true; do
         echo "Which plugins you want to configure? Available options: "
@@ -53,7 +62,7 @@ _setup_plugin(){
         # Check if userPlugin is available
         if [[ " ${AVAILABLE_PLUGINS[@]} " =~ " $userPlugin " ]]; then
             ENABLED_PLUGINS+=($userPlugin)
-            _configure_plugins $userEnv
+            _configure_plugins $environment_dir
             break
         fi
 
@@ -62,36 +71,40 @@ _setup_plugin(){
 }
 
 _configure_plugins() {
+
     # User environment is required
-    _validate_non_empty $1
-    userEnv=$1
+    _validate_exist $1
+    environment_dir=$1
 
     # TODO: What if plugin is already configured
     # Load env and rewrite
 
-    # Write plugins to user environment
-    declare -p ENABLED_PLUGINS >> "$ROOT_PATH/env/$1"
-
     for plugin in "${ENABLED_PLUGINS[@]}"; do
+        # Write plugins to user environment
+        properties_file="$environment_dir/${plugin}.sh"
+
+        # Truncate previous settings
+        printf "#!/bin/bash\n\n" > "$properties_file"
+
         # Check if the current plugin is one of the specified values
         if [[ "$plugin" == "git" ]]; then
+
             # Get variables value from user
             _prompt_user "git_username"
             _prompt_user "git_email"
-            # Write to new environment
-            echo "git_username=$git_username" >> "$ROOT_PATH/env/$userEnv"
-            echo "git_email=$git_email" >> "$ROOT_PATH/env/$userEnv"
+            echo "git_username=$git_username" >> $properties_file
+            echo "git_email=$git_email" >> $properties_file
         elif [[ "$plugin" == "aws" ]]; then
-            echo Not implemented yet
+            echo Not Implemented
         elif [[ "$plugin" == "azure" ]]; then
-            echo Not implemented yet
+            echo Not Implemented
         elif [[ "$plugin" == "gcloud" ]]; then
-            echo Not implemented yet
+            echo Not Implemented
         else
             echo "$plugin is not found in supported plugins $AVAILABLE_PLUGINS"
             exit 1
         fi
-        echo Environment: $userEnv -> Status: success - $plugin configured
+        echo Status: success - $plugin configured
     done
 }
 
@@ -99,17 +112,16 @@ show() {
 	ls -1 "$ROOT_PATH/env"
 }
 
-set() {
+enable() {
 	printf "\nWORKSPACE = $1\n"
 
-	filename=$1
+	profile=$1
 
 	# Check if the file exists
-	if [ -f "$ROOT_PATH/env/$filename" ]; then
-		source "$ROOT_PATH/env/$filename"
-
+	if [ -d "$ROOT_PATH/env/$profile" ]; then
+	    # TODO: Make it generic with other environments as well
+		source "$ROOT_PATH/env/$profile/git"
 		printf "\nGIT ENVIRONMENT\n\n"
-		# TODO Make it generic
 		$ROOT_PATH/plugins/git/git-config.sh $git_username $git_email
 	else
 		echo "Environment does not exist :("
@@ -117,8 +129,8 @@ set() {
 }
 
 remove() {
-	if [ -f "$ROOT_PATH/env/$1" ]; then
-		rm "$ROOT_PATH/env/$1"
+	if [ -d "$ROOT_PATH/env/$1" ]; then
+		rm -rf "$ROOT_PATH/env/$1"
 		echo "Environment $1 removed"
 	else
 		echo "Environment does not exist :("
@@ -126,6 +138,8 @@ remove() {
 }
 
 config() {
-    userEnv=$(_setup_environment $1)
-    _setup_plugin $userEnv
+    environment_dir=$(_setup_environment $1)
+    echo environment_dir=$environment_dir
+    echo $environment_dir
+    _associate_plugins_to_env $environment_dir
 }
