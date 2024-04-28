@@ -20,7 +20,7 @@ main() {
 		remove $2
 		;;
 	config)
-		config
+		config $2
 		;;
 	*)
 		echo "Unknown command: $1"
