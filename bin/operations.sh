@@ -17,10 +17,23 @@ enable() {
 
 	# Check if the file exists
 	if [ -d "$ROOT_PATH/.env/$profile" ]; then
-	    # TODO: Make it generic with other environments as well
-		source "$ROOT_PATH/.env/$profile/git"
-		printf "\nGIT ENVIRONMENT\n\n"
-		$ROOT_PATH/plugins/git/git-config.sh $git_username $git_email
+	    if [ -d "$ROOT_PATH/.env/$PROFILE" ]; then
+            for script in "$ROOT_PATH/.env/$PROFILE"/*; do
+                [ -f "$script" ] && source "$script"
+                if [ "$(basename "$script_file")" == "git.sh" ]; then
+                    $ROOT_PATH/plugins/git/git-config.sh $git_username $git_email
+                elif [ "$(basename "$script_file")" == "aws.sh" ]; then
+                    echo Not implemented && exit 1
+                elif [ "$(basename "$script_file")" == "azure.sh" ]; then
+                    echo Not implemented && exit 1
+                elif [ "$(basename "$script_file")" == "gcloud.sh" ]; then
+                    echo Not implemented && exit 1
+                fi
+            done
+        else
+            echo "Environments doesn't exist, run config command first"
+            exit 1
+        fi
 	else
 		echo "Environment does not exist :("
 	fi
@@ -37,7 +50,5 @@ remove() {
 
 config() {
     environment_dir=$(_setup_environment $1)
-    echo environment_dir=$environment_dir
-    echo $environment_dir
     _associate_plugins_to_env $environment_dir
 }
