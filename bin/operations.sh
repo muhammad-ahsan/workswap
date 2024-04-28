@@ -1,6 +1,10 @@
 #!/bin/bash
 
-source $ROOT_PATH/bin/helper.sh
+script_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+# Construct the absolute path to helper.sh
+source "$script_dir/helper.sh"
+
 
 show() {
 	ls -1 "$ROOT_PATH/.env"
