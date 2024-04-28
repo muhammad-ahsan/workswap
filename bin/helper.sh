@@ -85,8 +85,6 @@ _configure_plugins() {
 
         # Check if the current plugin is one of the specified values
         if [[ "$plugin" == "git" ]]; then
-
-            # Get variables value from user
             _prompt_user "git_username"
             _prompt_user "git_email"
             echo "git_username=$git_username" >> $properties_file
