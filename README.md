@@ -35,10 +35,10 @@ To display the current environment, use:
 
 `workswap show`
 
-#### Set Environment
+#### Enable Environment
 To switch to a different environment, use:
 
-`workswap set <ENVIRONMENT>`
+`workswap enable <ENVIRONMENT>`
 
 Replace <ENVIRONMENT> with the desired environment (e.g., personal, client).
 

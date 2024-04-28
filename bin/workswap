@@ -10,8 +10,8 @@ source "$SCRIPT_DIR/operations.sh"
 
 main() {
 	case $1 in
-	set)
-		set $2
+	enable)
+		enable $2
 		;;
 	show)
 		show
