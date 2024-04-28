@@ -17,23 +17,20 @@ enable() {
 
 	# Check if the file exists
 	if [ -d "$ROOT_PATH/.env/$profile" ]; then
-	    if [ -d "$ROOT_PATH/.env/$PROFILE" ]; then
-            for script in "$ROOT_PATH/.env/$PROFILE"/*; do
-                [ -f "$script" ] && source "$script"
-                if [ "$(basename "$script_file")" == "git.sh" ]; then
-                    $ROOT_PATH/plugins/git/git-config.sh $git_username $git_email
-                elif [ "$(basename "$script_file")" == "aws.sh" ]; then
-                    echo Not implemented && exit 1
-                elif [ "$(basename "$script_file")" == "azure.sh" ]; then
-                    echo Not implemented && exit 1
-                elif [ "$(basename "$script_file")" == "gcloud.sh" ]; then
-                    echo Not implemented && exit 1
-                fi
-            done
-        else
-            echo "Environments doesn't exist, run config command first"
-            exit 1
-        fi
+        for script in "$ROOT_PATH/.env/$profile"/*; do
+            [ -f "$script" ] && source "$script"
+            if [ "$(basename "$script")" == "git.sh" ]; then
+                $ROOT_PATH/plugins/git/git-config.sh $git_username $git_email
+                echo Successfully configured Git
+            elif [ "$(basename "$script")" == "aws.sh" ]; then
+                echo Not implemented && exit 1
+            elif [ "$(basename "$script")" == "azure.sh" ]; then
+                echo Not implemented && exit 1
+            elif [ "$(basename "$script")" == "gcloud.sh" ]; then
+                echo Not implemented && exit 1
+            fi
+        done
+
 	else
 		echo "Environment does not exist :("
 	fi
